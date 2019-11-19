@@ -13,6 +13,8 @@ services:
         parallelism: 1
         delay: 10s
     command: uwsgi --ini uwsgi.ini
+    volumes:
+      - workdir:/web/workdir
     networks:
       - Traefik_default
     labels:
@@ -25,3 +27,6 @@ networks:
   Traefik_default:
     external:
       name: Traefik_default
+
+volumes:
+  workdir
