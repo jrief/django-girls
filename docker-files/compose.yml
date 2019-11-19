@@ -15,6 +15,11 @@ services:
     command: uwsgi --ini uwsgi.ini
     networks:
       - Traefik_default
+    labels:
+      - traefik.http.routers.djangogirls.rule=$TRAEFIK_HOST
+      - traefik.http.routers.djangogirls.tls.certresolver=letsencrypt
+      - traefik.http.routers.djangogirls.entrypoints=websecure
+      - traefik.http.services.djangogirls.loadbalancer.server.port=7894
 
 networks:
   Traefik_default:
