@@ -12,6 +12,7 @@
 .idea
 *.sqlite3
 *~
+Pipfile.lock
 private_settings.py
 docs/build
 dist
