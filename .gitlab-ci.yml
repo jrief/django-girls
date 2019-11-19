@@ -1,0 +1,47 @@
+image: docker:19.03.2
+
+stages:
+  - build
+  - test
+  - deploy
+
+build:
+  stage: build
+  script:
+    - docker login --username $CI_REGISTRY_USER --password $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -f docker-files/dockerfile -t $CI_REGISTRY_IMAGE
+        --build-arg HTTP_PROXY --build-arg http_proxy
+        --build-arg HTTPS_PROXY --build-arg https_proxy 
+        --build-arg NO_PROXY --build-arg no_proxy .
+    - docker push $CI_REGISTRY_IMAGE
+  except:
+    changes:
+      - "*.md"
+
+test:
+  stage: test
+  script:
+    - docker login --username $CI_REGISTRY_USER --password $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - echo "docker run $CI_REGISTRY_IMAGE testsuite"
+
+deploy:
+  stage: deploy
+  variables:
+    DOCKER_TLS_CERTDIR: "/root/.docker"
+    DOCKER_TLS_VERIFY: "1"
+    DOCKER_HOST: "tcp://ciwbt2.uibk.ac.at:2376"
+    TRAEFIK_HOST: "Host(`django-girls.awesto.com`)"
+  before_script:
+    - mkdir -p $DOCKER_TLS_CERTDIR
+    - echo "$CA" > $DOCKER_TLS_CERTDIR/ca.pem
+    - echo "$CLIENT_CERT" > $DOCKER_TLS_CERTDIR/cert.pem
+    - echo "$CLIENT_KEY" > $DOCKER_TLS_CERTDIR/key.pem
+  script:
+    - docker login --username $CI_REGISTRY_USER --password $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker stack deploy
+        --compose-file docker-files/compose.yml
+        --with-registry-auth
+        --prune
+        django-girls
+  only:
+    - master

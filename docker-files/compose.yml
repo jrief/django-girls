@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  webapp:
+    image: $CI_REGISTRY_IMAGE
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      update_config:
+        parallelism: 1
+        delay: 10s
+    command: uwsgi --ini uwsgi.ini
+    networks:
+      - Traefik_default
+
+networks:
+  Traefik_default:
+    external:
+      name: Traefik_default
