@@ -25,7 +25,7 @@ SECRET_KEY = '(%f#-49r#bevr@_4%jwfa)ffz_o=q08u3kozj@(#ghyzep8x31'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'django-girls.awesto.com']
+ALLOWED_HOSTS = ['djangogirls.awesto.com', 'django-girls.awesto.com', '127.0.0.1', 'localhost']
 
 
 # Application definition

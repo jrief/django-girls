@@ -30,7 +30,7 @@ deploy:
     DOCKER_TLS_CERTDIR: "/root/.docker"
     DOCKER_TLS_VERIFY: "1"
     DOCKER_HOST: "tcp://ciwbt2.uibk.ac.at:2376"
-    TRAEFIK_HOST: "Host(`django-girls.awesto.com`)"
+    TRAEFIK_HOST: "Host(`djangogirls.awesto.com`)"
   before_script:
     - mkdir -p $DOCKER_TLS_CERTDIR
     - echo "$CA" > $DOCKER_TLS_CERTDIR/ca.pem
