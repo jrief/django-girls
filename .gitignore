@@ -10,6 +10,7 @@
 .tox/
 *.swp
 .idea
+*.sqlite3
 *~
 private_settings.py
 docs/build
