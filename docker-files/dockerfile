@@ -18,9 +18,8 @@ RUN pip install -r requirements.txt
 RUN pip install pytest-django
 
 # copy project relevant files into container
-ADD uniweb /web/uniweb
-ADD tests /web/tests
-COPY wsgi.py /web/wsgi.py
+ADD blog /web/blog
+ADD mysite /web/mysite
 COPY manage.py /web/manage.py
 COPY docker-files/uwsgi.ini /web/uwsgi.ini
 COPY docker-files/entrypoint.sh /web/entrypoint.sh
