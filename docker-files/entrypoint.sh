@@ -5,4 +5,5 @@ if [ "$1" = 'testsuite' ]; then
     exec pytest --capture=no tests
 fi
 
-exec "$@"
+su django -c "python /web/manage.py migrate"
+exec uwsgi --ini uwsgi.ini "$@"
