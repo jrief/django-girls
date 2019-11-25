@@ -12,6 +12,7 @@ services:
       update_config:
         parallelism: 1
         delay: 10s
+    command: uwsgi
     volumes:
       - workdir:/web/workdir
     networks:
