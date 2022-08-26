@@ -1,26 +1,13 @@
-{% load static %}
-<html>
-    <head>
-        <title>Django Girls blog</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="{% static 'blog/css/styles.css' %}">
-    </head>
-    <body>
-        <div class="container">
-            <h1><a href="/">Django Girls Blog</a></h1>
+{% extends 'blog/base.html' %}
 
-        {% for post in posts %}
-        <div>
-            <p>{{ post.published_date }}</p>
-            <h2><a href="">{{ post.title }}</a></h2>
-            <p>{{ post.text|linebreaksbr }}</p>
-        </div>
-        {% endfor %}
+{% block content %}
 
-        {% for post in posts %}
-            <div>{{ post }}</div>
-        {% endfor %}
-        </div>
-    </body>
-</html>
+{% for post in posts %}
+	<article class="post">
+		<time>published: {{ post.published_date }}</time>
+		<h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+		<p>{{ post.text|linebreaksbr }}</p>
+	</article>
+{% endfor %}
+
+{% endblock %}

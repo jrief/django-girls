@@ -10,15 +10,40 @@ class Tag(models.Model):
         return self.name
 
     def __repr__(self):
-        return '<Tag: {}>'.format(self.id)        
+        return f'<{self.__class__.__name__}(pk={self.id}): {self.name}>'
+
 
 class Post(models.Model):
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    title = models.CharField(max_length=200)
-    text = models.TextField()
-    created_date = models.DateTimeField(default=timezone.now)
-    published_date = models.DateTimeField(blank=True, null=True)
-    tags = models.ManyToManyField(Tag, related_name='tags')
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
+
+    title = models.CharField(
+        verbose_name="Title",
+        max_length=200,
+    )
+
+    text = models.TextField(
+        verbose_name="Body Text",
+    )
+
+    created_date = models.DateTimeField(
+        default=timezone.now,
+        editable=False,
+    )
+
+    published_date = models.DateTimeField(
+        verbose_name="Published Date",
+        blank=True,
+        null=True,
+    )
+
+    tags = models.ManyToManyField(
+        Tag,
+        related_name='tags',
+        blank=True,
+    )
 
     def publish(self):
         self.published_date = timezone.now()
@@ -26,6 +51,9 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+    def __repr__(self):
+        return f'<{self.__class__.__name__}(pk={self.id}): {self.title}>'
 
 
 class Comment(models.Model):
@@ -49,28 +77,5 @@ class Comment(models.Model):
         on_delete=models.SET_DEFAULT,
     )
 
-    age = models.PositiveIntegerField()
-
-    def __str__(self):
-        return str(self.text)
-    
-    @classmethod
-    def cmet(cls):
-        print("Class Meth")
-
-    @staticmethod
-    def smet():
-        print("Static Meth")
-
-class CensoredManager(models.Manager):
-    def all(self):
-        return self.filter(age__gt=18)
-
-class CensoredComment(Comment):
-    class Meta:
-        proxy = True
-
     def __str__(self):
         return str(self.entry_date)
-    
-    objects = CensoredManager()

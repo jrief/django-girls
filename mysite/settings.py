@@ -25,7 +25,7 @@ SECRET_KEY = '(%f#-49r#bevr@_4%jwfa)ffz_o=q08u3kozj@(#ghyzep8x31'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['djangogirls.awesto.com', 'django-girls.awesto.com', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -104,9 +104,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'de-at'
+LANGUAGE_CODE = 'en'
 
-TIME_ZONE = 'Europe/Vienna'
+TIME_ZONE = 'Europe/Lisbon'
 
 USE_I18N = True
 
@@ -142,7 +142,7 @@ LOGGING = {
             'propagate': True,
         },'django.db.backends': {
             'handlers': ['console'],
-            'level': 'DEBUG',
+            'level': 'INFO',
         },
     }
 }
