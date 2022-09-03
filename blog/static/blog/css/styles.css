@@ -48,7 +48,11 @@ h4 {
 }
 
 .post h2 a,
-.post h2 a:visited {
+.post h2 a:visited,
+.post h3 a,
+.post h3 a:visited,
+.post h4 a,
+.post h4 a:visited {
     color: #C25100;
     text-decoration: none;
 }

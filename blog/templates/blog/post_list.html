@@ -4,9 +4,17 @@
 
 {% for post in posts %}
 	<article class="post">
+	{% if user.is_authenticated %}
+		<aside class="actions">
+			<a class="btn btn-secondary" href="{% url 'post_edit' pk=post.pk %}">
+				{% include './icons/pencil-fill.svg' %}
+			</a>
+		</aside>
+	{% endif %}
+	{% if post.published_date %}
 		<time>published: {{ post.published_date }}</time>
-		<h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
-		<p>{{ post.text|linebreaksbr }}</p>
+	{% endif %}
+		<h4><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h4>
 	</article>
 {% endfor %}
 

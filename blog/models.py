@@ -6,6 +6,9 @@ from django.utils import timezone
 class Tag(models.Model):
     name = models.CharField(max_length=200)
 
+    class Meta:
+        ordering = ['name']
+
     def __str__(self):
         return self.name
 
@@ -43,6 +46,13 @@ class Post(models.Model):
         Tag,
         related_name='tags',
         blank=True,
+    )
+
+    image = models.ImageField(
+        verbose_name="An Image",
+        upload_to='uploads/images/',
+        blank=True,
+        null=True,
     )
 
     def publish(self):
