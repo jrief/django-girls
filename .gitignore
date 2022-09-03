@@ -8,6 +8,7 @@
 .DS_store
 .pytest_cache/
 .tox/
+.vscode/
 *.swp
 .idea
 *.sqlite3
@@ -16,6 +17,5 @@ Pipfile.lock
 private_settings.py
 docs/build
 dist
-assets/
+media/
 node_modules/
-workdir/
