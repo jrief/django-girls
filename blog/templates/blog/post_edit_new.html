@@ -1,0 +1,10 @@
+{% extends 'blog/base.html' %}
+{% load formsetify %}
+
+{% block content %}
+<django-formset endpoint="{{ request.path }}" class="my-3 d-block" csrf-token="{{ csrf_token }}">
+	<h2>New post</h2>
+	{% render_form form "bootstrap" %}
+	<button type="submit" class="save btn btn-secondary">Save</button>
+</django-formset>
+{% endblock %}

@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import UpdateView
 from django.utils import timezone
 
+from formset.views import IncompleteSelectResponseMixin, FileUploadMixin, FormViewMixin
+
 from .models import Post
 from .forms import PostForm
 
@@ -50,18 +52,16 @@ def post_detail(request, pk):
     return render(request, 'blog/post_detail.html', {'post': post})
 
 
-# class PostDetailView(DetailView):
-#     model = Post
-#     template_name = 'blog/post_detail.html'
-#
-#     def post(self, request, **kwargs):
-#         form = CommentForm(request.POST)
-#         if request.user.is_authenticated and form.is_valid():
-#             post = self.get_object()
-#             Comment.objects.create(
-#                 post=post,
-#                 text=form.cleaned_data['text'],
-#                 author=request.user,
-#             )
-#             return HttpResponseRedirect(redirect_to=request.path)
-#         return HttpResponseForbidden()
+class PostEditView(IncompleteSelectResponseMixin, FileUploadMixin, FormViewMixin, UpdateView):
+    model = Post
+    form_class = PostForm
+    template_name = 'blog/post_edit_new.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+    def form_valid(self, form):
+        result = super().form_valid(form)
+        form.instance.publish()  # TODO: Create extra button in form
+        return result
