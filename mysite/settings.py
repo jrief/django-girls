@@ -103,8 +103,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+STATICFILES_DIRS = [
+    ('node_modules', BASE_DIR / 'node_modules'),
+]
 STATIC_URL = '/static/'
-STATIC_ROOT = os.getenv('DJANGO_STATIC_ROOT', BASE_DIR/ 'staticfiles')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.getenv('DJANGO_MEDIA_ROOT', BASE_DIR / 'media')

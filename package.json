@@ -1,0 +1,15 @@
+{
+  "name": "django-girls",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jrief/django-girls.git"
+  },
+  "license": "BSD-3",
+  "bugs": {
+    "url": "https://github.com/jrief/django-girls/issues"
+  },
+  "homepage": "https://github.com/jrief/django-girls#readme",
+  "dependencies": {
+    "bootstrap": "^5.2.0"
+  }
+}

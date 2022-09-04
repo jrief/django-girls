@@ -1,10 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http.response import HttpResponseRedirect, HttpResponseForbidden
-from django.views.generic import DetailView
+from django.views.generic import UpdateView
 from django.utils import timezone
 
-from .models import Post, Comment
-from .forms import PostForm, CommentForm
+from .models import Post
+from .forms import PostForm
 
 
 def post_list(request):
@@ -24,6 +23,7 @@ def post_new(request):
             post.created_date = timezone.now()
             post.save()
             form.save_m2m()
+            post.publish()
             return redirect('post_detail', pk=post.pk)
     else:
         form = PostForm()
@@ -37,7 +37,6 @@ def post_edit(request, pk):
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
-            post.published_date = timezone.now()
             post.save()
             form.save_m2m()
             return redirect('post_detail', pk=post.pk)
