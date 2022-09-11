@@ -5,6 +5,9 @@
 <django-formset endpoint="{{ request.path }}" class="my-3 d-block" csrf-token="{{ csrf_token }}">
 	<h2>New post</h2>
 	{% render_form form "bootstrap" %}
-	<button type="submit" class="save btn btn-secondary">Save</button>
+	<button type="submit" class="save btn btn-secondary" click="disable -> spinner -> submit -> okay(900) -> proceed !~ bummer(5000)">
+		<span class="dj-button-decorator"><i class="dj-icon">{% include "formset/icons/send.svg" %}</i></span>
+		Save
+	</button>
 </django-formset>
 {% endblock %}
