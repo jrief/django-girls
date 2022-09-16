@@ -66,7 +66,6 @@ class PostEditView(IncompleteSelectResponseMixin, FileUploadMixin, FormViewMixin
     def form_valid(self, form):
         if self.add:
             form.instance.author = self.request.user
-            form.instance.created_date = timezone.now()
             form.instance.save()
         result = super().form_valid(form)
         form.instance.publish()  # TODO: Create extra button in form
