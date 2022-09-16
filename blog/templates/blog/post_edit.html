@@ -1,9 +1,13 @@
 {% extends 'blog/base.html' %}
+{% load formsetify %}
 
 {% block content %}
-    <h2>New post</h2>
-    <form method="POST" class="post-form" enctype="multipart/form-data">{% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="save btn btn-secondary">Save</button>
-    </form>
+<django-formset endpoint="{{ request.path }}" class="my-3 d-block" csrf-token="{{ csrf_token }}">
+	<h2>New post</h2>
+	{{ form_collection }}
+	<button type="submit" class="save btn btn-secondary" click="disable -> spinner -> submit -> okay(900) -> proceed !~ bummer(5000)">
+		<span class="dj-button-decorator"><i class="dj-icon">{% include "formset/icons/send.svg" %}</i></span>
+		Save
+	</button>
+</django-formset>
 {% endblock %}

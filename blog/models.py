@@ -32,8 +32,7 @@ class Post(models.Model):
     )
 
     created_date = models.DateTimeField(
-        default=timezone.now,
-        editable=False,
+        auto_now_add=True,
     )
 
     published_date = models.DateTimeField(
@@ -73,7 +72,11 @@ class Comment(models.Model):
         related_name='comments',
     )
 
-    text = models.TextField()
+    annotation = models.TextField(
+        verbose_name="annotation",
+        null=True,
+        blank=True,
+    )
 
     entry_date = models.DateTimeField(
         auto_now=True,
@@ -88,4 +91,4 @@ class Comment(models.Model):
     )
 
     def __str__(self):
-        return str(self.entry_date)
+        return str(self.annotation)
