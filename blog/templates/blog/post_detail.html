@@ -28,8 +28,10 @@
 		<li>{{ tag }}</li>
 	{% endfor %}
 	</ul>
-	<h3>Comment</h3>
-	<p>{{ post.comments.first|default_if_none:'' }}</p>
+	<h3>Comments</h3>
+	{% for comment in post.comments.all %}
+	<p class="mb-2">{{ comment|default_if_none:'' }}</p>
+	{% endfor %}
 </article>
 
 {% endblock %}

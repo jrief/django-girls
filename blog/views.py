@@ -63,7 +63,8 @@ class PostEditView(LoginRequiredMixin, EditCollectionView):
     def form_collection_valid(self, form_collection):
         if self.extra_context['add_post'] is True:
             self.object = self.model(author=self.request.user)
-        form_collection.cleaned_data['comment'].update(created_by=self.request.user)
+        for data in form_collection.cleaned_data['comments']:
+            data['comment'].update(created_by=self.request.user)
         return super().form_collection_valid(form_collection)
 
     def get_success_url(self):
