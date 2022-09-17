@@ -29,7 +29,7 @@
 	{% endfor %}
 	</ul>
 	<h3>Comment</h3>
-	<p>{{ post.comments.first }}</p>
+	<p>{{ post.comments.first|default_if_none:'' }}</p>
 </article>
 
 {% endblock %}

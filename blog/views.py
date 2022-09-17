@@ -52,16 +52,16 @@ def post_detail(request, pk):
 
 class PostEditView(LoginRequiredMixin, EditCollectionView):
     model = Post
-    template_name = 'blog/post_edit_new.html'
     collection_class = PostCollection
-    add = False
+    template_name = 'blog/post_edit.html'
+    extra_context = {'add_post': False}
 
     def get_object(self, queryset=None):
-        if self.add is False:
+        if self.extra_context['add_post'] is False:
             return super().get_object(queryset)
 
     def form_collection_valid(self, form_collection):
-        if self.add:
+        if self.extra_context['add_post'] is True:
             self.object = self.model(author=self.request.user)
         form_collection.cleaned_data['comment'].update(created_by=self.request.user)
         return super().form_collection_valid(form_collection)
