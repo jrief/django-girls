@@ -3,6 +3,7 @@
 
 <head>
 	<title>Django Girls blog</title>
+	<link rel="icon" href="data:,">
 	<link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css" crossorigin="anonymous">
 	<link rel="stylesheet" href="{% static 'node_modules/bootstrap/dist/css/bootstrap.css' %}">
 	<link rel="stylesheet" href="{% static 'blog/css/styles.css' %}">
@@ -22,7 +23,7 @@
 
 	<main class="content container">
 		<div class="row">
-			<div class="col">
+			<div class="col mb-5">
 				{% block content %}
 				{% endblock %}
 			</div>
