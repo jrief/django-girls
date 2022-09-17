@@ -53,18 +53,18 @@ def post_detail(request, pk):
 class PostEditView(IncompleteSelectResponseMixin, FileUploadMixin, FormViewMixin, UpdateView):
     model = Post
     form_class = PostForm
-    template_name = 'blog/post_edit_new.html'
-    add = False
+    template_name = 'blog/post_edit.html'
+    extra_context = {'add_post': False}
 
     def get_object(self, queryset=None):
-        if self.add is False:
+        if self.extra_context['add_post'] is False:
             return super().get_object(queryset)
 
     def get_success_url(self):
         return reverse('post_detail', kwargs={'pk': self.object.pk})
 
     def form_valid(self, form):
-        if self.add:
+        if self.extra_context['add_post'] is True:
             form.instance.author = self.request.user
             form.instance.save()
         result = super().form_valid(form)
