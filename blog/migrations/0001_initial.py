@@ -5,6 +5,35 @@ from django.db import migrations, models
 import django.db.models.deletion
 
 
+def populate_tags(apps, schema_editor):
+    Tag = apps.get_model('blog', 'Tag')
+    Tag.objects.bulk_create([
+        Tag(name="Python"),
+        Tag(name="Ruby"),
+        Tag(name="Rust"),
+        Tag(name="PHP"),
+        Tag(name="C#"),
+        Tag(name="C"),
+        Tag(name="Perl"),
+        Tag(name="JavaScript"),
+        Tag(name="TypeScript"),
+        Tag(name="Lisp"),
+        Tag(name="Java"),
+        Tag(name="Kotlin"),
+        Tag(name="C++"),
+        Tag(name="Swift"),
+        Tag(name="Go"),
+        Tag(name="Julia"),
+        Tag(name="R"),
+        Tag(name="Fortran"),
+    ])
+
+
+def unpopulate_tags(apps, schema_editor):
+    Tag = apps.get_model('blog', 'Tag')
+    Tag.objects.all().delete()
+
+
 class Migration(migrations.Migration):
 
     initial = True
@@ -47,4 +76,5 @@ class Migration(migrations.Migration):
                 ('post', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comments', to='blog.post')),
             ],
         ),
+        migrations.RunPython(populate_tags, reverse_code=unpopulate_tags),
     ]
